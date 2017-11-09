@@ -4895,4 +4895,4 @@
 	"ZW-MN":{"code":"ZW-MN","name":"Matabeleland North","division":"province","parent":"ZW","lat":46.729553,"lng":-94.68589980000002},
 	"ZW-MS":{"code":"ZW-MS","name":"Matabeleland South","division":"province","parent":"ZW"},
 	"ZW-MI":{"code":"ZW-MI","name":"Midlands","division":"province","parent":"ZW","lat":44.3148443,"lng":-85.60236429999998}
-};
+}
