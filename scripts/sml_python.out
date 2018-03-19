@@ -1,1 +1,2 @@
-slurmstepd: *** JOB 60196 CANCELLED AT 2018-03-18T23:08:42 *** on guane06
+814.59user 13.29system 13:48.10elapsed 99%CPU (0avgtext+0avgdata 15250276maxresident)k
+8inputs+24outputs (0major+9546090minor)pagefaults 0swaps

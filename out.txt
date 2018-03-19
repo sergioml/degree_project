@@ -22,4 +22,3 @@ El score de ind_viv_fin_ult1 es 0.999161960128
 El score de ind_nomina_ult1 es 0.980700812627
 El score de ind_nom_pens_ult1 es 0.979961281701
 El score de ind_recibo_ult1 es 0.96779043007
-Hello
