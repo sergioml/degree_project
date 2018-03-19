@@ -4,18 +4,21 @@ from time import time
 
 from sklearn.ensemble import RandomForestClassifier
 
-df = pd.read_csv('data/clean/train_clean_v2.csv')
-df_targets = pd.read_csv('data/clean/train_labels.csv')
+df = pd.read_csv('../data/clean/train_clean_v2.csv')
+df_targets = pd.read_csv('../data/clean/train_labels.csv')
 
 df_copy = df.copy()
 
 x = df_copy.drop(['fecha_dato', 'fecha_alta', 'ncodpers'], axis=1).as_matrix()
 y = df_targets.as_matrix()
-print('Tamaño de datasets', x.shape, y.shape)
+print('Shape datasets', x.shape, y.shape)
 
 limit = 10094948 #Fila en la que inicia el último mes de registro
 
-targets = df_targets.columns[:1]
+targets = df_targets.columns
+
+start = time()
+
 for i, col in enumerate(targets):
     y_one_index = df_targets.iloc[y[:limit, i] == 1, i].index
     y_zero_index = df_targets.iloc[y[:limit, i] == 0, i].index
@@ -38,3 +41,8 @@ for i, col in enumerate(targets):
     print('El n de muestra es de', n, '--->', np.unique(df_targets[col].as_matrix(), return_counts=True))
     print('El score del entrenamiento es de', score)
     print('----------------------------------------')
+
+end = time()
+fulltime = end - start
+print("Tiempo total", fulltime, "s")
+print("Tiempo total", fulltime/60, "min")
