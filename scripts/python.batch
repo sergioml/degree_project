@@ -6,4 +6,4 @@
 #SBATCH --output=sml_python.out
 #SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:3
-time python3 create_df.py >> out.txt
+time python3 $1 >> out.txt
