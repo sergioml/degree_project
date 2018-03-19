@@ -1,0 +1,9 @@
+#!/bin/sh
+#SBATCH --partition=all
+#SBATCH --time=96:00:00
+#SBATCH --nodes=1
+#SBATCH --job-name="sml_python"
+#SBATCH --output=sml_python.out
+#SBATCH --ntasks-per-node=1
+#SBATCH --gres=gpu:3
+time python3 create_df.py >> out.txt

@@ -1,0 +1,2 @@
+slurmstepd: get_exit_code task 0 died by signal
+slurmstepd: *** JOB 56159 CANCELLED AT 2018-03-08T10:04:17 DUE TO TIME LIMIT on guane09 ***
