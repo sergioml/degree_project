@@ -2,6 +2,7 @@ Datasets' shape
 (10795392, 27) (10795392, 24)
 
 Negative is 0 and Positive is 1
+
 ind_ahor_fin_ult1
 True positive: 56
 False positive: 0
