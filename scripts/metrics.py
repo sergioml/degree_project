@@ -3,6 +3,7 @@ import pandas as pd
 
 from sklearn.metrics import confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
 
 df = pd.read_csv('../data/clean/train_clean_v2.csv')
 df_targets = pd.read_csv('../data/clean/train_labels.csv')
@@ -48,13 +49,13 @@ y_test = y[10094948:]
 print("Negative is 0 and Positive is 1")
 
 for index, row in enumerate(df_targets.columns):
-    rf = RandomForestClassifier()
-    tn, fp, fn, tp, sensitivity, specifity = metrics(x_train, y_train[:, index], x_test, y_test[:, index], rf)
+    gb = GaussianNB()
+    tn, fp, fn, tp, sensitivity, specifity = metrics(x_train, y_train[:, index], x_test, y_test[:, index], gb)
     print(row)
     print('True positive:', tp)
-    print('False positive:', fp)
+    print('False negative:', fn)
     print('True positive rate or sensitivity:', sensitivity)
     print('True negative:', tn)
-    print('False negative:', fn)
+    print('False positive:', fp)
     print('True negative rate or specifity:', specifity)
     print()
