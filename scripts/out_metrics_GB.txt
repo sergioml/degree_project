@@ -1,0 +1,196 @@
+Datasets' shape
+(10795392, 27) (10795392, 24)
+
+Negative is 0 and Positive is 1
+ind_ahor_fin_ult1
+True positive: 0
+False negative: 72
+True positive rate or sensitivity: 0.0
+True negative: 698666
+False positive: 1706
+True negative rate or specifity: 0.997564151622
+
+ind_aval_fin_ult1
+True positive: 0
+False negative: 14
+True positive rate or sensitivity: 0.0
+True negative: 700430
+False positive: 0
+True negative rate or specifity: 1.0
+
+ind_cco_fin_ult1
+True positive: 419271
+False negative: 3276
+True positive rate or sensitivity: 0.992247016308
+True negative: 4989
+False positive: 272908
+True negative rate or specifity: 0.0179526947034
+
+ind_cder_fin_ult1
+True positive: 3
+False negative: 262
+True positive rate or sensitivity: 0.011320754717
+True negative: 697526
+False positive: 2653
+True negative rate or specifity: 0.996210968909
+
+ind_cno_fin_ult1
+True positive: 67
+False negative: 60424
+True positive rate or sensitivity: 0.00110760278389
+True negative: 639316
+False positive: 637
+True negative rate or specifity: 0.999004614401
+
+ind_ctju_fin_ult1
+True positive: 5873
+False negative: 359
+True positive rate or sensitivity: 0.942394094994
+True negative: 641647
+False positive: 52565
+True negative rate or specifity: 0.924281055355
+
+ind_ctma_fin_ult1
+True positive: 2907
+False negative: 2149
+True positive rate or sensitivity: 0.574960443038
+True negative: 653852
+False positive: 41536
+True negative rate or specifity: 0.940269317273
+
+ind_ctop_fin_ult1
+True positive: 83734
+False negative: 1749
+True positive rate or sensitivity: 0.979539791537
+True negative: 414516
+False positive: 200445
+True negative rate or specifity: 0.67405250089
+
+ind_ctpp_fin_ult1
+True positive: 23370
+False negative: 5289
+True positive rate or sensitivity: 0.815450643777
+True negative: 419626
+False positive: 252159
+True negative rate or specifity: 0.624643301056
+
+ind_deco_fin_ult1
+True positive: 0
+False negative: 272
+True positive rate or sensitivity: 0.0
+True negative: 700172
+False positive: 0
+True negative rate or specifity: 1.0
+
+ind_deme_fin_ult1
+True positive: 0
+False negative: 858
+True positive rate or sensitivity: 0.0
+True negative: 698187
+False positive: 1399
+True negative rate or specifity: 0.99800024586
+
+ind_dela_fin_ult1
+True positive: 19194
+False negative: 7259
+True positive rate or sensitivity: 0.725588780101
+True negative: 420862
+False positive: 253129
+True negative rate or specifity: 0.624432670466
+
+ind_ecue_fin_ult1
+True positive: 119
+False negative: 62467
+True positive rate or sensitivity: 0.00190138369603
+True negative: 636648
+False positive: 1210
+True negative rate or specifity: 0.998103026065
+
+ind_fond_fin_ult1
+True positive: 6728
+False negative: 5765
+True positive rate or sensitivity: 0.538541583287
+True negative: 549655
+False positive: 138296
+True negative rate or specifity: 0.798974054838
+
+ind_hip_fin_ult1
+True positive: 8
+False negative: 3981
+True positive rate or sensitivity: 0.00200551516671
+True negative: 696135
+False positive: 320
+True negative rate or specifity: 0.999540530257
+
+ind_plan_fin_ult1
+True positive: 11
+False negative: 6398
+True positive rate or sensitivity: 0.00171633640193
+True negative: 693418
+False positive: 617
+True negative rate or specifity: 0.999110995843
+
+ind_pres_fin_ult1
+True positive: 476
+False negative: 1171
+True positive rate or sensitivity: 0.289010321797
+True negative: 679227
+False positive: 19570
+True negative rate or specifity: 0.971994728083
+
+ind_reca_fin_ult1
+True positive: 211
+False negative: 39541
+True positive rate or sensitivity: 0.00530790903602
+True negative: 659037
+False positive: 1655
+True negative rate or specifity: 0.997495050644
+
+ind_tjcr_fin_ult1
+True positive: 111
+False negative: 30010
+True positive rate or sensitivity: 0.00368513661565
+True negative: 668900
+False positive: 1423
+True negative rate or specifity: 0.99787714281
+
+ind_valo_fin_ult1
+True positive: 6
+False negative: 18070
+True positive rate or sensitivity: 0.000331931843328
+True negative: 682063
+False positive: 305
+True negative rate or specifity: 0.999553027106
+
+ind_viv_fin_ult1
+True positive: 86
+False negative: 2539
+True positive rate or sensitivity: 0.0327619047619
+True negative: 691498
+False positive: 6321
+True negative rate or specifity: 0.990941777166
+
+ind_nomina_ult1
+True positive: 52
+False negative: 40093
+True positive rate or sensitivity: 0.00129530452111
+True negative: 659624
+False positive: 675
+True negative rate or specifity: 0.998977735844
+
+ind_nom_pens_ult1
+True positive: 48
+False negative: 43957
+True positive rate or sensitivity: 0.00109078513805
+True negative: 655833
+False positive: 606
+True negative rate or specifity: 0.999076837299
+
+ind_recibo_ult1
+True positive: 257
+False negative: 91632
+True positive rate or sensitivity: 0.00279685272448
+True negative: 607303
+False positive: 1252
+True negative rate or specifity: 0.997942667466
+
