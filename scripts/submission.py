@@ -10,6 +10,7 @@ df_targets = pd.read_csv('../data/clean/train_labels.csv')
 df_copy = df_data.copy()
 
 df_test = pd.read_csv('../data/clean/test_clean.csv')
+print("Shape de test", df_test.shape)
 
 ##Datos de entrenamiento
 df_copy.drop(['fecha_dato', 'fecha_alta', 'ncodpers'], axis=1, inplace=True)
@@ -19,12 +20,11 @@ y_train = df_targets.as_matrix()
 resultados = pd.DataFrame(columns= ['ncodpers'] + df_targets.columns.tolist() + ['added_products'])
 resultados['ncodpers'] = df_test['ncodpers']
 
-df_test.drop(['fecha_dato', 'fecha_alta', 'ncodpers'], axis=1, inplace=True)
+df_test.drop(['fecha_dato', 'fecha_alta', 'ncodpers', 'ind_nuevo'], axis=1, inplace=True)
 x_test = df_test.as_matrix()
 
-rf = RandomForestClassifier()
-
 for i, col in enumerate(df_targets.columns.tolist()):
+    rf = RandomForestClassifier(n_jobs=4)
     rf.fit(x_train, y_train[:, i])
     preds = [rf.predict(x.reshape(1, -1))[0] for x in x_test]
     resultados[col] = preds
