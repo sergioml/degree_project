@@ -3,3 +3,7 @@ data/
 .ipynb_checkpoints/
 
 scripts/sml_python.out
+
+*.csv
+
+scripts/*.csv
