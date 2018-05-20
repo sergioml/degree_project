@@ -4,6 +4,8 @@ data/
 
 scripts/sml_python.out
 
+*.tar
+*.zip
 *.csv
 
 scripts/*.csv
