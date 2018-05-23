@@ -16,7 +16,7 @@ Descripción de los notebooks de jupyter
 * `keep_working_1:` Generación de un modelo por cada producto que hay, se sigue usando el algoritmo Random Forest
 * `keep_working_2:` Entrenamiento de los datos con targets balanceados
 * `keep_working_3:` Entrenamiento y test, con métricas de sensibilidad  y especifidad
-
+* `submission_kaggle:` Procesamiento del dataset de test suministrado por kaggle y generación de los archivos de _submission_ 
 ---
 
 ### Scripts de python
