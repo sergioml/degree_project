@@ -9,3 +9,5 @@ scripts/sml_python.out
 *.csv
 
 scripts/*.csv
+
+scripts/__pycache__/
