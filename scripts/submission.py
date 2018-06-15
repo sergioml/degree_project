@@ -10,6 +10,9 @@ def submission(x_train, y_train, x_test, clf, target_cols, out_file, result_file
     #df_result: dataframe para generar el archivo de salida - este DataFrame ya tiene los códigos de los clientes a predecir
     #ncodpers_last_month: serie de ncodpers que están en el mes anterior del test    
     
+    y_df = y_train
+    y_train = y_train.as_matrix()
+    
     s = time()
     for i, col in enumerate(target_cols):
         f = open('results/txt/' + out_file + '.txt', 'a')
@@ -28,7 +31,8 @@ def submission(x_train, y_train, x_test, clf, target_cols, out_file, result_file
         ncodper = df_result.iloc[i]['ncodpers'] #Código individual
         
         if ncodper in ncodpers_last_month.values:
-            pre_targ = y_train[ncodpers_last_month[ncodpers_last_month == ncodper].index]
+            ind = ncodpers_last_month[ncodpers_last_month == ncodper].index
+            pre_targ = y_df.loc[ind].as_matrix()
             post_targ = df_result.iloc[i, 1:-1].as_matrix()
             line = (pre_targ - post_targ).reshape((24))
             df_result.iloc[i , -1] = " ".join([rs[i] for i, t in enumerate(line) if t == -1])

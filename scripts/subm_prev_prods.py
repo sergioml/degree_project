@@ -34,7 +34,7 @@ for i in range(1, len(dates)):
 
 
 x_train = df_new.drop(['fecha_dato', 'fecha_alta', 'ncodpers'], axis=1).as_matrix()
-y_train = df_targets.loc[df_new.index].as_matrix()
+y_train = df_targets.loc[df_new.index]
 
 #### Dataset test ####
 
