@@ -16,7 +16,9 @@ Descripción de los notebooks de jupyter
 * `keep_working_1:` Generación de un modelo por cada producto que hay, se sigue usando el algoritmo Random Forest
 * `keep_working_2:` Entrenamiento de los datos con targets balanceados
 * `keep_working_3:` Entrenamiento y test, con métricas de sensibilidad  y especifidad
+* `keep_working_4:` Procesamiento de dataset de entrenamiento añadiendo los productos del mes anterior como *features*
 * `submission_kaggle:` Procesamiento del dataset de test suministrado por kaggle y generación de los archivos de _submission_ 
+
 ---
 
 ### Scripts de python
@@ -24,5 +26,7 @@ Descripción de los scripts de python utilizados
 
 * `df_test.py:` Preprocesado del dataset de test suministrado por Kaggle
 * `metrics.py:` Métricas de test como true negative, false positive, false negative y true positive
-* `submissions.py:` Pruebas con el dataset de test para generar sumisiones en Kaggle
+* `submission.py:` Función para hacer submissiones en Kaggle
 * `targets_balanced.py:` Prueba con un RandomForestClassifier y los targets balanceados
+* `subm_pca.py:` Prueba con PCA
+* `subm_prev_prods.py:` Prueba con los productos del mes anterior como features
