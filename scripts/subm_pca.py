@@ -28,10 +28,13 @@ x_train_pca = PCA.fit_transform(x)
 x_test_pca = PCA.fit_transform(x_test)
 columns = df_targets.columns.tolist()
 
+clf = RandomForestClassifier()
+
 submission(x_train=x_train_pca,
         y_train=y,
         x_test=x_test_pca,
         target_cols=columns,
+        clf = clf,
         out_file='out_pca_n10_prevprods_v2',
         result_file='resultados_pca_n10_prevprods_v2',
         df_result=resultados,
