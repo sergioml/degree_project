@@ -1,26 +1,24 @@
-from time import time
+import time
 import pandas as pd
 
-def submission(x_train, y_train, x_test, clf, out_file, result_file, ncodpers_last_month):
-"""    
-    * x_train: DataFrame
-            Datos de entrenamiento - features 
-    * y_train: DataFrame
-            Targets de entrenamiento
-    * x_test: DataFrame
-            Datos de test con preprocesado con NCODPERS
-    * clf: Modelo de entrenamiento - RandomForestClassifier, etc.
-    * out_file: str
-            nombre del archivo txt de salida
-    * result_file: str 
-            nombre del archivo csv de salida
-    * ncodpers_last_month: Serie
-            ncodpers que están en el mes anterior del test    
-"""    
+def submission(x_train, y_train, x_test, clf, ncodpers_last_month):
+    """    
+        * x_train: DataFrame
+                Datos de entrenamiento - features 
+        * y_train: DataFrame
+                Targets de entrenamiento
+        * x_test: DataFrame
+                Datos de test con preprocesado y CON NCODPERS
+        * clf: Modelo de entrenamiento - RandomForestClassifier, etc.
+        * ncodpers_last_month: Serie
+                ncodpers que están en el mes anterior del test    
+    """ 
     y_df = y_train
     y_train = y_train.as_matrix()
     x_tr = x_train.as_matrix()
-    x_t = x_test.drop(['ncodpers']).as_matrix()
+    x_t = x_test.drop(['ncodpers'], axis=1).as_matrix()
+    
+    date_for_file = time.strftime("%Y-%m-%d-h%H-%M-%S_")
     
     target_cols = y_df.columns.tolist()
     
@@ -31,17 +29,17 @@ def submission(x_train, y_train, x_test, clf, out_file, result_file, ncodpers_la
     result = pd.DataFrame(columns=index)
     result.insert(0, 'ncodpers', x_test.ncodpers.values)
 
-    s = time()
+    s = time.time()
     for i, col in enumerate(target_cols):
-        f = open('results/txt/' + out_file + '.txt', 'a')
-        start = time()
+        f = open('results/txt/' + date_for_file + 'out_txt.txt', 'a')
+        start = time.time()
         clf.fit(x_tr, y_train[:, i])
         
-        pred_probs = rf.predict_proba(x_t).max(axis=1)
-        preds = rf.predict(x_t)
+        pred_probs = clf.predict_proba(x_t).max(axis=1)
+        preds = clf.predict(x_t)
         
         result[col] = np.vstack((preds, pred_probs)).T
-        end = time()
+        end = time.time()
         f.write("{} {} {:0.4f} min\n".format(i, col, (end - start)/float(60)))
         f.close()
 
@@ -77,8 +75,8 @@ def submission(x_train, y_train, x_test, clf, out_file, result_file, ncodpers_la
     
         result.iloc[i , -1] = predicted_str
 
-    e = time()
+    e = time.time()
     f = open('results/txt/' + out_file + '.txt', 'a')
     f.write("\nTiempo total: {:0.4f} min".format((e-s)/float(60)))
     f.close()
-    result[['ncodpers', 'added_products']].to_csv('results/submissions/' + result_file + '.csv', index=False)
+    result[['ncodpers', 'added_products']].to_csv('results/submissions/' + date_for_file + 'submission.csv', index=False)
