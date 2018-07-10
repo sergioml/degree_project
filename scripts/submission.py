@@ -1,5 +1,6 @@
 import time
 import pandas as pd
+import numpy as np
 
 def submission(x_train, y_train, x_test, clf, ncodpers_last_month):
     """    
