@@ -1,0 +1,99 @@
+Shape datasets (10795392, 24) (10795392, 24)
+ind_ahor_fin_ult1
+El n de muestra es de 1249 ---> (array([0, 1]), array([10794143,     1249]))
+El score del entrenamiento es de 0.965930181428
+----------------------------------------
+ind_aval_fin_ult1
+El n de muestra es de 294 ---> (array([0, 1]), array([10795098,      294]))
+El score del entrenamiento es de 0.964723803759
+----------------------------------------
+ind_cco_fin_ult1
+El n de muestra es de 3711072 ---> (array([0, 1]), array([3711072, 7084320]))
+El score del entrenamiento es de 0.872643637464
+----------------------------------------
+ind_cder_fin_ult1
+El n de muestra es de 4544 ---> (array([0, 1]), array([10790848,     4544]))
+El score del entrenamiento es de 0.940413509146
+----------------------------------------
+ind_cno_fin_ult1
+El n de muestra es de 952893 ---> (array([0, 1]), array([9842499,  952893]))
+El score del entrenamiento es de 0.88645916019
+----------------------------------------
+ind_ctju_fin_ult1
+El n de muestra es de 111488 ---> (array([0, 1]), array([10683904,   111488]))
+El score del entrenamiento es de 0.99839530355
+----------------------------------------
+ind_ctma_fin_ult1
+El n de muestra es de 99794 ---> (array([0, 1]), array([10695598,    99794]))
+El score del entrenamiento es de 0.975881012615
+----------------------------------------
+ind_ctop_fin_ult1
+El n de muestra es de 1494611 ---> (array([0, 1]), array([9300781, 1494611]))
+El score del entrenamiento es de 0.903899526586
+----------------------------------------
+ind_ctpp_fin_ult1
+El n de muestra es de 508695 ---> (array([0, 1]), array([10286697,   508695]))
+El score del entrenamiento es de 0.922586245296
+----------------------------------------
+ind_deco_fin_ult1
+El n de muestra es de 17968 ---> (array([0, 1]), array([10777424,    17968]))
+El score del entrenamiento es de 0.985863252451
+----------------------------------------
+ind_deme_fin_ult1
+El n de muestra es de 19126 ---> (array([0, 1]), array([10776266,    19126]))
+El score del entrenamiento es de 0.924590688192
+----------------------------------------
+ind_dela_fin_ult1
+El n de muestra es de 505551 ---> (array([0, 1]), array([10289841,   505551]))
+El score del entrenamiento es de 0.926253918943
+----------------------------------------
+ind_ecue_fin_ult1
+El n de muestra es de 971431 ---> (array([0, 1]), array([9823961,  971431]))
+El score del entrenamiento es de 0.902030711948
+----------------------------------------
+ind_fond_fin_ult1
+El n de muestra es de 215645 ---> (array([0, 1]), array([10579747,   215645]))
+El score del entrenamiento es de 0.928025652301
+----------------------------------------
+ind_hip_fin_ult1
+El n de muestra es de 70692 ---> (array([0, 1]), array([10724700,    70692]))
+El score del entrenamiento es de 0.924433644945
+----------------------------------------
+ind_plan_fin_ult1
+El n de muestra es de 109801 ---> (array([0, 1]), array([10685591,   109801]))
+El score del entrenamiento es de 0.928955062789
+----------------------------------------
+ind_pres_fin_ult1
+El n de muestra es de 28475 ---> (array([0, 1]), array([10766917,    28475]))
+El score del entrenamiento es de 0.980646561324
+----------------------------------------
+ind_reca_fin_ult1
+El n de muestra es de 623499 ---> (array([0, 1]), array([10171893,   623499]))
+El score del entrenamiento es de 0.900274682915
+----------------------------------------
+ind_tjcr_fin_ult1
+El n de muestra es de 526703 ---> (array([0, 1]), array([10268689,   526703]))
+El score del entrenamiento es de 0.879590659639
+----------------------------------------
+ind_valo_fin_ult1
+El n de muestra es de 296497 ---> (array([0, 1]), array([10498895,   296497]))
+El score del entrenamiento es de 0.917543729406
+----------------------------------------
+ind_viv_fin_ult1
+El n de muestra es de 46521 ---> (array([0, 1]), array([10748871,    46521]))
+El score del entrenamiento es de 0.926839261954
+----------------------------------------
+ind_nomina_ult1
+El n de muestra es de 648019 ---> (array([ 0.,  1.]), array([10147373,   648019]))
+El score del entrenamiento es de 0.881757856445
+----------------------------------------
+ind_nom_pens_ult1
+El n de muestra es de 704127 ---> (array([ 0.,  1.]), array([10091265,   704127]))
+El score del entrenamiento es de 0.883234062966
+----------------------------------------
+ind_recibo_ult1
+El n de muestra es de 1492063 ---> (array([0, 1]), array([9303329, 1492063]))
+El score del entrenamiento es de 0.892842254342
+----------------------------------------
+Tiempo total 779.4500360488892 s
+Tiempo total 12.990833934148153 min
