@@ -11,3 +11,5 @@ scripts/sml_python.out
 scripts/*.csv
 
 scripts/__pycache__/
+
+results/submissions/kaggle_submission
