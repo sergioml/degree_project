@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import time
 
 def model(x_train, y_train, model):
     """
@@ -18,6 +19,32 @@ def model(x_train, y_train, model):
         Algortimo entrenado
     """
     return model.fit(x_train, y_train)
+
+def calculatePredsProbs(x_test, clf):
+    """
+    Función para calcular las probabilidades de predicción y predicciones hechas por el modelo entrenado
+    
+    Parameters
+    ----------
+    x_test: Array
+        Datos de test
+    clf: Objeto
+        El modelo previamente entrenado
+        
+    Results
+    -------
+    probs: Array
+        Array de las probabilidades de predicción
+    preds: Array
+        Array de predicciones
+
+    """
+    preds = clf.predict(x_test)
+    
+    probs = clf.predict_proba(x_test)
+    probs = np.array([pr.max(axis=1) for pr in probs]).T
+    
+    return probs, preds
 
 def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
                        df_targets=None, y_test=None, env='local', path='results/submissions/'):
@@ -60,7 +87,6 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
     df_train.reset_index(drop=True, inplace=True)
     df_test.reset_index(drop=True, inplace=True)
     df_targets.reset_index(drop=True, inplace=True)
-    y_test.reset_index(drop=True, inplace=True)
     
     ncodpers_prev_month = df_train.loc[:, 'ncodpers'].values
     ncodpers_last_month = df_test.loc[:, 'ncodpers'].values
@@ -90,9 +116,12 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
         df_subm = pd.DataFrame({'ncodpers': df_test.ncodpers.values, 'added_products': final_pred})
         name_file = path + time.strftime("%Y-%m-%d-h%H-%M-%S_") + "submission.csv"
         df_subm.to_csv(name_file, index=False)
+        
+        print(name_file)
     
-        return df_subm
+        return df_subm, name_file
     else:
+        y_test.reset_index(drop=True, inplace=True)
         y = y_test.loc[index_prev].as_matrix()
         
         purchases = yx - prev_prods
