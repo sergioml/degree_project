@@ -83,7 +83,6 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
             Una lista de listas de los productos que se predijeron
     
     """
-    
     df_train.reset_index(drop=True, inplace=True)
     df_test.reset_index(drop=True, inplace=True)
     df_targets.reset_index(drop=True, inplace=True)
@@ -101,7 +100,7 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
     
     #Predicciones de los productos que están en ambos meses - Sólo productos añadidos
     both_prods = pred_prods - prev_prods
-    both_prods = (both_prods < 0) * 1
+    both_prods = (both_prods > 0) * 1
     
     if env == 'submit':
         
@@ -122,16 +121,15 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
         return df_subm, name_file
     else:
         y_test.reset_index(drop=True, inplace=True)
-        y = y_test.loc[index_prev].as_matrix()
+        y = y_test.loc[index_last].as_matrix()
+        purchases = y - prev_prods
+        purchases = (purchases > 0) * 1        
         
-        purchases = yx - prev_prods
-        purchases = (purchases < 0) * 1        
-        
-        indexs = np.array([[i for i in range(y.shape[1])] * y.shape[0]]).reshape(y.shape[0], y.shape[1])
+        indexs = np.array([[i for i in range(y.shape[1])] * y.shape[0]]).reshape(y.shape)
         actual = purchases * indexs
         actual = list(map(lambda x: list(np.unique(x)[1:]), actual))
         
-        preds = both_prods
+        preds = both_prods #Estas son las predicciones de los productos que se añaden 
         probs = probs[index_last]
         
         pred_probs = (preds * probs).argsort(axis=1)
