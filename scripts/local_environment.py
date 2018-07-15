@@ -60,9 +60,9 @@ def processPredictions(probs=None, preds=None, df_prev=None, df_test=None,
     df_prev: DataFrame
         Datos del mes previo al de test
     df_test: DataFrame
-        Datos del mes de test si se va a hacer una validación local, por el contrario es None por default
+        Datos del mes de test
     df_targets: DataFrame
-        Targets - mes previo del mes de entrenamiento
+        Targets del mes previo del mes de entrenamiento
     y_test: DataFrame
         Targets del mes de test, sólo si env es 'local'
     env: str (optional)

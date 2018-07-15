@@ -39,7 +39,7 @@ for i in range(1, len(dates[:-1])+1):
     probs, preds = local.calculatePredsProbs(x_test, model)
     
     df_prev = df[df['fecha_dato'] == dates[-2]]
-    df_y = df_targets.loc[df_x.index]
+    df_y = df_targets.loc[df_prev.index]
     
     predicted, actual = local.processPredictions(probs, preds, df_prev, df_x_test, df_y, df_y_test)
     
