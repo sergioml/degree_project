@@ -7,6 +7,9 @@ import pandas as pd
 import time
 
 import local_environment as local
+import importlib
+
+importlib.reload(local)
 
 from sklearn.ensemble import RandomForestClassifier
 
@@ -35,9 +38,14 @@ for i in range(1, len(dates[:-1])+1):
     model = local.model(x_train, y_train, RandomForestClassifier(n_jobs=4))
     probs, preds = local.calculatePredsProbs(x_test, model)
     
-    predicted, actual = local.processPredictions(probs, preds, df_x, df_x_test, df_y, df_y_test)
+    df_prev = df[df['fecha_dato'] == dates[-2]]
+    df_y = df_targets.loc[df_x.index]
+    
+    predicted, actual = local.processPredictions(probs, preds, df_prev, df_x_test, df_y, df_y_test)
     
     score = local.mapk(actual, predicted, 7)
+    
+    results.loc[i] = [date_range[0], date_range[-1], score, x_train.shape[0]]
     
 results.to_csv('results/experiment7.csv', index=False)
 

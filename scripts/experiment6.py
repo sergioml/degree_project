@@ -34,11 +34,14 @@ for i, date in enumerate(dates[:-1]):
     model = local.model(x_train, y_train, RandomForestClassifier(n_jobs=4))
     probs, preds = local.calculatePredsProbs(x_test, model)
     
-    predicted, actual = local.processPredictions(probs, preds, df_x, df_x_test, df_y, df_y_test)
+    df_prev = df[df['fecha_dato'] == dates[-2]]
+    df_y = df_targets.loc[df_prev.index]
+    
+    predicted, actual = local.processPredictions(probs, preds, df_prev, df_x_test, df_y, df_y_test)
     
     score = local.mapk(actual, predicted, 7)
     
-    results.loc[i] = [dates[i+1], score, x_train.shape[0]]
+    results.loc[i] = [date, score, x_train.shape[0]]
     print(date)
 
 results.to_csv('results/experiment6.csv', index=False)
