@@ -46,7 +46,7 @@ def calculatePredsProbs(x_test, clf):
     
     return probs, preds
 
-def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
+def processPredictions(probs=None, preds=None, df_prev=None, df_test=None,
                        df_targets=None, y_test=None, env='local', path='results/submissions/'):
     """
     Procesamiento de las predicciones hechas para generar el archivo de submission
@@ -57,12 +57,12 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
         Probabilidades de elegir un producto - Generado por el modelo
     preds: Array
         Predicciones hechas por el modelo entrenado
-    df_train: DataFrame
-        Datos de entrenamiento - último mes de entrenamiento
+    df_prev: DataFrame
+        Datos del mes previo al de test
     df_test: DataFrame
-        Datos de test si se va a hacer una validación local, por el contrario es None por default
+        Datos del mes de test si se va a hacer una validación local, por el contrario es None por default
     df_targets: DataFrame
-        Targets - último mes de entrenamiento
+        Targets - mes previo del mes de entrenamiento
     y_test: DataFrame
         Targets del mes de test, sólo si env es 'local'
     env: str (optional)
@@ -83,16 +83,17 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
             Una lista de listas de los productos que se predijeron
     
     """
-    df_train.reset_index(drop=True, inplace=True)
+    
+    df_prev.reset_index(drop=True, inplace=True)
     df_test.reset_index(drop=True, inplace=True)
     df_targets.reset_index(drop=True, inplace=True)
     
-    ncodpers_prev_month = df_train.loc[:, 'ncodpers'].values
+    ncodpers_prev_month = df_prev.loc[:, 'ncodpers'].values
     ncodpers_last_month = df_test.loc[:, 'ncodpers'].values
     
     ncodpers_both = list(set(ncodpers_last_month) & set(ncodpers_prev_month))
     
-    index_prev = df_train[df_train['ncodpers'].isin(ncodpers_both)].sort_values(['ncodpers']).index
+    index_prev = df_prev[df_prev['ncodpers'].isin(ncodpers_both)].sort_values(['ncodpers']).index
     index_last = df_test[df_test['ncodpers'].isin(ncodpers_both)].sort_values(['ncodpers']).index
     
     prev_prods = df_targets.loc[index_prev].as_matrix()
@@ -115,10 +116,8 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
         df_subm = pd.DataFrame({'ncodpers': df_test.ncodpers.values, 'added_products': final_pred})
         name_file = path + time.strftime("%Y-%m-%d-h%H-%M-%S_") + "submission.csv"
         df_subm.to_csv(name_file, index=False)
-        
-        print(name_file)
     
-        return df_subm, name_file
+        return df_subm
     else:
         y_test.reset_index(drop=True, inplace=True)
         y = y_test.loc[index_last].as_matrix()
@@ -138,7 +137,6 @@ def processPredictions(probs=None, preds=None, df_train=None, df_test=None,
         predicted = pred_probs
         
         return predicted, actual
-
 """
 From github: @benhamner
 """
