@@ -13,6 +13,8 @@ importlib.reload(local)
 
 from sklearn.ensemble import RandomForestClassifier
 
+s = time.time()
+
 df = pd.read_csv('../data/clean/train_clean.csv')
 df_targets = pd.read_csv('../data/clean/train_labels.csv')
 
@@ -47,5 +49,8 @@ for i in range(1, len(dates[:-1])+1):
     
     results.loc[i] = [date_range[0], date_range[-1], score, x_train.shape[0]]
     
-results.to_csv('results/experiment7.csv', index=False)
+results.to_csv('results/experiment7_v2.csv', index=False)
 
+e = time.time()
+
+print("Tiempo total {:.2f}".format((e - s)/3600))

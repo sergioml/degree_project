@@ -44,5 +44,5 @@ for i, date in enumerate(dates[:-1]):
     results.loc[i] = [date, score, x_train.shape[0]]
     print(date)
 
-results.to_csv('results/experiment6.csv', index=False)
+results.to_csv('results/experiment6_v2.csv', index=False)
 
