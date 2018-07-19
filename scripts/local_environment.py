@@ -83,6 +83,7 @@ def processPredictions(probs=None, preds=None, df_prev=None, df_test=None,
             Una lista de listas de los productos que se predijeron
     
     """
+    targets = np.array(df_targets.columns.tolist())
     
     df_prev.reset_index(drop=True, inplace=True)
     df_test.reset_index(drop=True, inplace=True)
@@ -102,20 +103,20 @@ def processPredictions(probs=None, preds=None, df_prev=None, df_test=None,
     #Predicciones de los productos que están en ambos meses - Sólo productos añadidos
     both_prods = pred_prods - prev_prods
     both_prods = (both_prods > 0) * 1
-    
+            
     if env == 'submit':
         
         preds[index_last] = both_prods
     
         pred_probs = (preds * probs).argsort(axis=1)
-        pred_probs = np.fliplr(pred_probs)[:, :7]
-    
-        targets = np.array(df_targets.columns.tolist())
+        pred_probs = np.fliplr(pred_probs)[:, :7]    
+   
         final_pred = [" ".join(list(targets[p])) for p in pred_probs]
 
         df_subm = pd.DataFrame({'ncodpers': df_test.ncodpers.values, 'added_products': final_pred})
         name_file = path + time.strftime("%Y-%m-%d-h%H-%M-%S_") + "submission.csv"
         df_subm.to_csv(name_file, index=False)
+        print(name_file)
     
         return df_subm
     else:

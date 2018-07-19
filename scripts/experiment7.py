@@ -12,20 +12,22 @@ import importlib
 importlib.reload(local)
 
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 s = time.time()
 
+df_purcharsers = pd.read_csv('../data/clean/train_purcharsers.csv', index_col='index')
 df = pd.read_csv('../data/clean/train_clean.csv')
 df_targets = pd.read_csv('../data/clean/train_labels.csv')
 
-dates = df.fecha_dato.unique()
+dates = df_purcharsers.fecha_dato.unique()
 date_test = dates[-1]
 
 results = pd.DataFrame(columns=['date_start', 'date_end', 'score', 'amount_data'])
 
 for i in range(1, len(dates[:-1])+1):
     date_range = dates[:i]
-    df_x = df[df['fecha_dato'].isin(date_range)]
+    df_x = df_purcharsers[df_purcharsers['fecha_dato'].isin(date_range)]
     df_y = df_targets.loc[df_x.index]
     
     x_train = df_x.drop(['fecha_dato', 'fecha_alta'], axis=1).as_matrix()
@@ -37,7 +39,7 @@ for i in range(1, len(dates[:-1])+1):
     x_test = df_x_test.as_matrix()
     y_test = df_y_test.as_matrix()
     
-    model = local.model(x_train, y_train, RandomForestClassifier(n_jobs=4))
+    model = local.model(x_train, y_train, DecisionTreeClassifier())
     probs, preds = local.calculatePredsProbs(x_test, model)
     
     df_prev = df[df['fecha_dato'] == dates[-2]]
@@ -49,7 +51,7 @@ for i in range(1, len(dates[:-1])+1):
     
     results.loc[i] = [date_range[0], date_range[-1], score, x_train.shape[0]]
     
-results.to_csv('results/experiment7_v2.csv', index=False)
+results.to_csv('results/experiment7_DT_purcharsers.csv', index=False)
 
 e = time.time()
 
