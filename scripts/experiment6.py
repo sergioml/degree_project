@@ -5,6 +5,7 @@ Experimento que hace un entrenamiento progresivo individual por cada mes, y el t
 import numpy as np
 import pandas as pd
 import time
+import sys
 
 import local_environment as local
 
@@ -14,16 +15,17 @@ from sklearn.tree import DecisionTreeClassifier
 df = pd.read_csv('../data/clean/train_clean.csv')
 df_targets = pd.read_csv('../data/clean/train_labels.csv')
 
-df_purcharsers = pd.read_csv('../data/clean/train_purcharsers.csv')
-df_purcharsers.set_index('Unnamed: 0', inplace=True)
+df_purchasers = pd.read_csv('../data/clean/train_purchasers.csv', index_col='index')
+print('Datasets cargardos')
+df_train = df_purchasers.copy()
 
-dates = df_purcharsers.fecha_dato.unique()
-date_test = dates[-1]
+dates = df_train.fecha_dato.unique()
+date_test = dates[-2]
 
 results = pd.DataFrame(columns=['date', 'score', 'amount_data'])
-
-for i, date in enumerate(dates[:-1]):
-    df_x = df_purcharsers[df_purcharsers['fecha_dato'] == date]
+print('Inicio...')
+for i, date in enumerate(dates[:-2]):
+    df_x = df_train[df_train['fecha_dato'] == date]
     df_y = df_targets.loc[df_x.index]
     
     x_train = df_x.drop(['fecha_dato', 'fecha_alta'], axis=1).as_matrix()
@@ -35,10 +37,10 @@ for i, date in enumerate(dates[:-1]):
     x_test = df_x_test.as_matrix()
     y_test = df_y_test.as_matrix()
     
-    model = local.model(x_train, y_train, DecisionTreeClassifier())
+    model = local.model(x_train, y_train, GaussianNB())
     probs, preds = local.calculatePredsProbs(x_test, model)
     
-    df_prev = df[df['fecha_dato'] == dates[-2]]
+    df_prev = df[df['fecha_dato'] == dates[-3]]
     df_y = df_targets.loc[df_prev.index]
     
     predicted, actual = local.processPredictions(probs, preds, df_prev, df_x_test, df_y, df_y_test)
@@ -46,7 +48,14 @@ for i, date in enumerate(dates[:-1]):
     score = local.mapk(actual, predicted, 7)
     
     results.loc[i] = [date, score, x_train.shape[0]]
-    print(date)
+    print(date, score)
 
-results.to_csv('results/experiment6_DT_purcharsers.csv', index=False)
+#key = sys.argv[1] #Key para todos los experimentos iguales
+#dataset = sys.argv[2]
+
+key = "ABRIL16_RF"
+dataset = "PURCHASERS"
+
+name_file = 'experiment6_'+key+'_'+dataset+'.csv'
+results.to_csv('results/'+name_file, index=False)
 
