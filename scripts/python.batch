@@ -6,4 +6,9 @@
 #SBATCH --output=sml_python.out
 #SBATCH --ntasks-per-node=4
 #SBATCH --gres=gpu:3
-time python3 $1 $2 $3
+##time python3 PREV_MONTH_RF_ORIGINAL.py
+##time python3 WEIGHT_06_04_RF_ORIGINAL.py
+##time python3 WEIGHT_08_02_RF_ORIGINAL.py
+##time python3 COMPLETE_RF_ALL.py
+time python3 experiment6.py
+time python3 experiment7.py
