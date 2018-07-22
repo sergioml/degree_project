@@ -20,14 +20,14 @@ df_targets = pd.read_csv('../data/clean/train_labels.csv')
 df_purchasers = pd.read_csv('../data/clean/train_purchasers.csv', index_col='index')
 
 df_train = df_purchasers.copy()
-
+k = -5
 dates = df_train.fecha_dato.unique()
-date_test = dates[-2]
+date_test = dates[k]
 print('Datasets cargados')
 print(df_train.shape)
 results = pd.DataFrame(columns=['date_start', 'date_end', 'score', 'amount_data'])
 print('Inicio')
-for i in range(1, len(dates[:-2])+1):
+for i in range(1, len(dates[:k])+1):
     date_range = dates[:i]
     df_x = df_train[df_train['fecha_dato'].isin(date_range)]
     df_y = df_targets.loc[df_x.index]
@@ -44,7 +44,7 @@ for i in range(1, len(dates[:-2])+1):
     model = local.model(x_train, y_train, RandomForestClassifier(n_jobs=4))
     probs, preds = local.calculatePredsProbs(x_test, model)
     
-    df_prev = df[df['fecha_dato'] == dates[-3]]
+    df_prev = df[df['fecha_dato'] == dates[k-1]]
     df_y = df_targets.loc[df_prev.index]
     
     predicted, actual = local.processPredictions(probs, preds, df_prev, df_x_test, df_y, df_y_test)
@@ -57,7 +57,7 @@ for i in range(1, len(dates[:-2])+1):
 
 #key = sys.argv[1] #Key para todos los experimentos iguales
 #dataset = sys.argv[2]
-key = "RF_ABRIL16"
+key = "RF_ENERO16"
 dataset = "PURCHASERS"
 name_file = 'experiment7_'+key+'_'+dataset+'.csv'
 print(name_file)

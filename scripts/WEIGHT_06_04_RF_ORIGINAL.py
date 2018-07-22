@@ -6,19 +6,19 @@ import time
 
 df = pd.read_csv('../data/clean/train_clean.csv')
 df_targets = pd.read_csv('../data/clean/train_labels.csv')
+df_purchasers = pd.read_csv('../data/clean/train_purchasers.csv', index_col='index')
 
 key = 'WEIGHT_06_04_RF_ORIGINAL'
 
 print(key, '\n')
 s = time.time()
 f = open('final_experiments.txt', 'a')
-f.write(key)
-f.write('\nInicio' + time.strftime("%Y/%m/%d %H:%M") + '\n')
+f.write('\n' + key)
+f.write('\nInicio ' + time.strftime("%Y/%m/%d %H:%M") + '\n')
 f.close()
 
 df_a = df.loc[:, ['fecha_dato']].join(df_targets.loc[df.index])
 df_a = df_a.groupby(['fecha_dato']).sum()
-df_a.head()
 
 dates = df_a.index
 
@@ -42,13 +42,13 @@ for i in range(1, len(dates)):
     tuple_date = (dates[i-1], dates[i])
     
     f = open('final_experiments.txt', 'a')
-    f.write(str(tuple_date[0]) + '-' + str(tuple_date[1]))
+    f.write(str(tuple_date[0]) + ' - ' + str(tuple_date[1]))
     f.write('\n')    
     f.close()
     
     weighted_class = []
 
-    purchases = df_a.loc[tuple[0]]
+    purchases = df_a.loc[tuple_date[0]]
 
     for p in purchases:
         if p > 0:
@@ -65,18 +65,25 @@ for i in range(1, len(dates)):
     x_train = df.loc[df['fecha_dato'] == tuple_date[0]]
     y_train = df_targets.loc[x_train.index]
 
-    x = x_train.drop(['fecha_dato', 'ncodpers','fecha_alta'], axis=1).as_matrix()
+    x = x_train.drop(['fecha_dato','fecha_alta'], axis=1).as_matrix()
     y = y_train.as_matrix()
+    
+    if np.sum(np.sum(y, axis=0) == 0) != 0:
+        for i in np.unique((np.sum(y, axis=0) == 0) * np.arange(1, 25) - 1)[1:]:
+            weighted_class[i] = {0:1}
     
     model = local.model(x, y, RandomForestClassifier(n_jobs=4, class_weight=weighted_class))
     
     df_test = df.loc[df['fecha_dato'] == tuple_date[1]]
     df_test_targets = df_targets.loc[df_test.index]
     
-    x_test = df_test.drop(['fecha_dato', 'ncodpers','fecha_alta'], axis=1).as_matrix()
+    x_test = df_test.drop(['fecha_dato','fecha_alta'], axis=1).as_matrix()
     probs, preds = local.calculatePredsProbs(x_test, model)
     
-    predicted, actual = local.processPredictions(probs, preds, x_train, df_test, y_train, df_test_targets)
+    x_prev = df.loc[df['fecha_dato'] == tuple_date[0]]
+    y_prev = df_targets.loc[x_prev.index]
+    
+    predicted, actual = local.processPredictions(probs, preds, x_prev, df_test, y_prev, df_test_targets)
     
     score = local.mapk(actual, predicted, 7)
     
@@ -84,12 +91,11 @@ for i in range(1, len(dates)):
 
     results.loc[i] = [tuple_date[1], score, x_train.shape[0], end-start]
 
-results.to_csv('results/'+key+'.csv', index=False)
+results.to_csv('results/last/'+key+'.csv', index=False)
 e = time.time()
 
 f = open('final_experiments.txt', 'a')
-f.write('\nFinal' + time.strftime("%Y/%m/%d %H:%M") + '\n')
+f.write('\nFinal ' + time.strftime("%Y/%m/%d %H:%M") + '\n')
 final_time = (e - s)/3600
 f.write(str(final_time)+'\n')
 f.close()
-

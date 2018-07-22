@@ -6,14 +6,15 @@ import time
 
 df = pd.read_csv('../data/clean/train_clean.csv')
 df_targets = pd.read_csv('../data/clean/train_labels.csv')
+df_purchasers = pd.read_csv('../data/clean/train_purchasers.csv', index_col='index')
 
-key = 'COMPLETE_RF_ALL'
+key = 'COMPLETE_RF_PURCHASERS'
 
 print(key, '\n')
 s = time.time()
 f = open('final_experiments.txt', 'a')
-f.write(key)
-f.write('\nInicio' + time.strftime("%Y/%m/%d %H:%M") + '\n')
+f.write('\n' + key)
+f.write('\nInicio ' + time.strftime("%Y/%m/%d %H:%M") + '\n')
 f.close()
 
 dates = df.loc[:, 'fecha_dato'].unique()
@@ -21,11 +22,13 @@ dates = df.loc[:, 'fecha_dato'].unique()
 results = pd.DataFrame(columns=['date_test', 'score', 'amount_data', 'time'])
 
 for i in range(5):
+    start = time.time()
+
     training_dates = dates[:12+i]
     tuple_date = dates[[i+11,i+12]]
     
     f = open('final_experiments.txt', 'a')
-    f.write(str(tuple_date[0]) + '-' + str(tuple_date[1]))
+    f.write(str(tuple_date[0]) + ' - ' + str(tuple_date[1]))
     f.write('\n')    
     f.close()
     
@@ -47,17 +50,17 @@ for i in range(5):
     y_prev = df_targets.loc[x_prev.index]
     
     predicted, actual = local.processPredictions(probs, preds, x_prev, df_test, y_prev, df_test_targets)
-    
+   
     score = local.mapk(actual, predicted, 7)
     
     end = time.time()
 
     results.loc[i] = [tuple_date[1], score, x_train.shape[0], end-start]
 
-results.to_csv('results/'+key+'.csv', index=False)
+results.to_csv('results/last/'+key+'.csv', index=False)
 e = time.time()
 f = open('final_experiments.txt', 'a')
-f.write('\nFinal' + time.strftime("%Y/%m/%d %H:%M") + '\n')
+f.write('\nFinal ' + time.strftime("%Y/%m/%d %H:%M") + '\n')
 final_time = (e - s)/3600
 f.write(str(final_time)+'\n')
 f.close()
