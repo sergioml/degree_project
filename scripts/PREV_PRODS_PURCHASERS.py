@@ -11,7 +11,7 @@ df = pd.read_csv('../data/clean/train_clean.csv')
 df_targets = pd.read_csv('../data/clean/train_labels.csv')
 df_purchasers = pd.read_csv('../data/clean/train_purchasers.csv', index_col='index')
 
-key = 'PREV_PRODS_RF_PURCHASERS'
+key = 'PREV_PRODS_RF_ORIGINAL'
 print(key)
 
 s = time.time()
@@ -40,11 +40,11 @@ for i in range(1, len(date_test)):
     
     #Procesamiento de datos de entrenamiento
     
-    df_aux = df_purchasers.loc[df_purchasers['fecha_dato'].isin(date_range[:-1]), ['ncodpers']].join(df_targets.loc[df_purchasers.index])    
+    df_aux = df.loc[df['fecha_dato'].isin(date_range[:-1]), ['ncodpers']].join(df_targets.loc[df.index])    
     df_aux = df_aux.groupby(['ncodpers']).sum()
     df_aux.reset_index(inplace=True)
     
-    x_train = df_purchasers.loc[df_purchasers['fecha_dato'] == date_test[i-1]]
+    x_train = df.loc[df['fecha_dato'] == date_test[i-1]]
     y_train = df_targets.loc[x_train.index].reset_index(drop=True)
     x_train = x_train.merge(df_aux, on='ncodpers', how='left')
     x_train.replace(np.nan, 0, inplace=True)
@@ -56,7 +56,7 @@ for i in range(1, len(date_test)):
     
     #Procesamiento de datos de test
     
-    df_aux = df_purchasers.loc[df_purchasers['fecha_dato'].isin(date_range), ['ncodpers']].join(df_targets)
+    df_aux = df.loc[df['fecha_dato'].isin(date_range), ['ncodpers']].join(df_targets)
     df_aux = df_aux.groupby(['ncodpers']).sum()
     df_aux.reset_index(inplace=True)
     
